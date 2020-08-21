@@ -43,6 +43,7 @@ class MovieController < ApplicationController
             return render json: @movie.to_json, status:200
         else 
             #idk a lot about error handling in rails
+        end
     end
     
     def delete
@@ -57,4 +58,4 @@ class MovieController < ApplicationController
         return render json: @studio.to_json, status: 200
     end 
 end
-end
+
