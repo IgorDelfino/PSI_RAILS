@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   get '/movie/:id/studio' => 'movie#show_studio_of_movie'
   patch '/movie/update/:id' => 'movie#update'
   post '/movie/create'
+  get '/movies/ghibli' => 'movie#add_ghibli_movies_to_database'
 
 end

@@ -12,19 +12,18 @@
 
 ActiveRecord::Schema.define(version: 2020_08_20_214137) do
 
-  create_table "movies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "movies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title", null: false
     t.string "release_date", null: false
     t.text "description", null: false
-    t.string "genre", null: false
-    t.string "esrb", null: false
+    t.integer "score", null: false
     t.bigint "studio_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["studio_id"], name: "index_movies_on_studio_id"
   end
 
-  create_table "studios", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "studios", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "foundation", null: false
     t.datetime "created_at", precision: 6, null: false
