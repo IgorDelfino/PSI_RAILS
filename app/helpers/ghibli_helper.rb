@@ -1,0 +1,2 @@
+module GhibliHelper
+end

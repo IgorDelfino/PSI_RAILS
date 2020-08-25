@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get '/movie/:id/studio' => 'movie#show_studio_of_movie'
   patch '/movie/update/:id' => 'movie#update'
   post '/movie/create'
-  get '/movies/ghibli' => 'movie#add_ghibli_movies_to_database'
+  
+  # Ghibli Routes
+  get '/movies/add/ghibli' => 'ghibli#add_ghibli_movies_to_database'
+  get '/movies/ghibli' => 'ghibli#get_all_ghibli_movies'
 
 end

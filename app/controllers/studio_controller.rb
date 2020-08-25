@@ -12,17 +12,15 @@ class StudioController < ApplicationController
         return render json: @studio.to_json, status: 200
     end
     
-    # def new
-    #     @studio = Studio.new
-    # end
-    
     def create
         @studio = Studio.new(studio_params)
 
         if @studio.save
             return render json: @studio.to_json, status: 200
         else
-            #here i need to find a way to put an error
+            return render json: {
+                error: "could not create studio"
+            },  status: 400
         end
 
     end
@@ -31,17 +29,15 @@ class StudioController < ApplicationController
         params.permit(:name, :foundation)
     end
     
-    # def edit
-    #     @studio = Studio.find(params[:id])
-    # end
-    
     def update
         @studio = Studio.find(params[:id])
 
         if @studio.update_attributes(studio_params)
             return render json: @studio.to_json, status: 200
         else
-            #i dont know what to put here yet
+            return render json: {
+                error: "could not update studio"
+            },  status: 400
         end
     end
     
@@ -57,7 +53,9 @@ class StudioController < ApplicationController
         if @movies
             return render json: @movies.to_json, status: 200
         else
-            #idk a lot about error handlingin rails
+            return render json: {
+                error: "could not find movies"
+            },  status: 400
         end
     end
 end

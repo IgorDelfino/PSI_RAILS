@@ -1,5 +1,3 @@
-require 'net/http'
-require 'json'
 
 class MovieController < ApplicationController
 
@@ -12,13 +10,14 @@ class MovieController < ApplicationController
     
     def show
         movie = Movie.find(params[:id])
-        return render json: movie.to_json, status: 200
+        if movie
+            return render json: movie.to_json, status: 200
+        else
+            return render json: {
+                error: "could not find movie"
+            },  status: 400
+        end
     end
-    
-    # def new
-    #     @movie = Movie.new
-    #     @studios = Studio.all 
-    # end
     
     def create
         movie = Movie.new(movie_params)
@@ -26,7 +25,9 @@ class MovieController < ApplicationController
         if movie.save
             return render json: movie.to_json, status: 200
         else
-            #something
+            return render json: {
+                error: "could not create movie"
+            },  status: 400
         end
 
     end
@@ -35,17 +36,15 @@ class MovieController < ApplicationController
         params.permit(:title, :release_date, :description, :score, :studio_id)
     end
     
-    # def edit
-    #     @movie = Studio.find(params[:id])
-    # end
-    
     def update
         movie = Movie.find(params[:id])
 
         if movie.update_attributes(movie_params)
             return render json: movie.to_json, status:200
         else 
-            #idk a lot about error handling in rails
+            return render json: {
+                error: "could not update movie"
+            },  status: 400
         end
     end
     
@@ -60,20 +59,6 @@ class MovieController < ApplicationController
         studio = movie.studio
         return render json: studio.to_json, status: 200
     end
-    
-    def add_ghibli_movies_to_database
-        uri = URI('https://ghibliapi.herokuapp.com/films/')
-        movies = JSON.parse(Net::HTTP.get(uri))
-        movies.each do |movie|
-           ghibli_movie = Movie.new
-           ghibli_movie.title = movie['title']
-           ghibli_movie.release_date = movie['release_date']
-           ghibli_movie.description = movie['description']
-           ghibli_movie.score = movie['rt_score']
-           ghibli_movie.studio_id = 1
-           ghibli_movie.save
-        end 
-        
-    end
+
 end
 
